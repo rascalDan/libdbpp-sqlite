@@ -1,0 +1,19 @@
+alias glibmm : : : :
+	<cflags>"`pkg-config --cflags glibmm-2.4`"
+	<linkflags>"`pkg-config --libs glibmm-2.4`"
+	;
+
+lib libsqlite : : <name>sqlite3 ;
+
+lib sqlitepp :
+	[ glob *.cpp ] :
+	<cflags>-fPIC
+	<library>glibmm 
+	<library>libsqlite
+	<library>../libdbpp
+	<include>../libmisc
+	: :
+	<include>.
+	<library>glibmm 
+	<library>../libdbpp
+	;
