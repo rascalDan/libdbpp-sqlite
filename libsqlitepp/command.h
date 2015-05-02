@@ -18,6 +18,8 @@ namespace SQLite {
 			void bindParamI(unsigned int, long unsigned int) override;
 			void bindParamI(unsigned int, long long unsigned int) override;
 
+			void bindParamB(unsigned int, bool) override;
+
 			void bindParamF(unsigned int, double) override;
 			void bindParamF(unsigned int, float) override;
 

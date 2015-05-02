@@ -81,6 +81,11 @@ SQLite::Command::bindParamS(unsigned int n, const Glib::ustring & s)
 	}
 }
 void
+SQLite::Command::bindParamB(unsigned int, bool)
+{
+	throw Error("Not supported");
+}
+void
 SQLite::Command::bindParamT(unsigned int, const boost::posix_time::time_duration &)
 {
 	throw Error("Not supported");
