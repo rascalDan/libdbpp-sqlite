@@ -11,7 +11,6 @@ lib sqlitepp :
 	<library>glibmm 
 	<library>libsqlite
 	<library>../libdbpp
-	<include>../libmisc
 	: :
 	<include>.
 	<library>glibmm 
