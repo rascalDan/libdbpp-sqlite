@@ -2,6 +2,8 @@
 #include "connection.h"
 #include "error.h"
 #include <string.h>
+#include <boost/multi_index_container.hpp>
+#include <boost/multi_index/ordered_index.hpp>
 
 namespace SQLite {
 	class Column : public DB::Column {
@@ -37,7 +39,6 @@ namespace SQLite {
 					case SQLITE_BLOB:
 						throw std::runtime_error("Blobs not supported");
 				}
-				
 			}
 
 			void rebind(DB::Command*, unsigned int) const {
@@ -67,9 +68,9 @@ SQLite::SelectCommand::fetch()
 {
 	switch (sqlite3_step(stmt)) {
 		case SQLITE_ROW:
-			if (columns.empty()) {
+			if (columns->empty()) {
 				for (int c = sqlite3_data_count(stmt) - 1; c >= 0; c -= 1) {
-					columns.insert(DB::ColumnPtr(new Column(sqlite3_column_name(stmt, c), c, stmt)));
+					insertColumn(DB::ColumnPtr(new Column(sqlite3_column_name(stmt, c), c, stmt)));
 				}
 			}
 			return true;
