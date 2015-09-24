@@ -5,14 +5,18 @@ alias glibmm : : : :
 
 lib libsqlite : : <name>sqlite3 ;
 
-lib sqlitepp :
+lib dbpp-sqlite :
 	[ glob *.cpp ] :
-	<cflags>-fPIC
-	<library>glibmm 
+	<library>glibmm
 	<library>libsqlite
 	<library>../libdbpp
+	<cflags>-fvisibility=hidden
+	<variant>release:<cflags>-flto
 	: :
 	<include>.
-	<library>glibmm 
+	<library>glibmm
 	<library>../libdbpp
 	;
+
+build-project unittests ;
+
