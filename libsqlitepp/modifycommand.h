@@ -1,7 +1,7 @@
 #ifndef SQLITE_MODIFYCOMMAND_H
 #define SQLITE_MODIFYCOMMAND_H
 
-#include "../libdbpp/modifycommand.h"
+#include <modifycommand.h>
 #include "command.h"
 
 namespace SQLite {

@@ -1,7 +1,7 @@
 #ifndef SQLITE_CONNECTION_H
 #define SQLITE_CONNECTION_H
 
-#include "../libdbpp/connection.h"
+#include <connection.h>
 #include "error.h"
 #include <sqlite3.h>
 

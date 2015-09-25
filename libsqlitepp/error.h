@@ -1,7 +1,7 @@
 #ifndef SQLITE_ERROR_H
 #define SQLITE_ERROR_H
 
-#include "../libdbpp/error.h"
+#include <error.h>
 
 namespace SQLite {
 	class Error : public DB::Error {

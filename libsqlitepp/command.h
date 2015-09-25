@@ -1,7 +1,7 @@
 #ifndef SQLITE_COMMAND_H
 #define SQLITE_COMMAND_H
 
-#include "../libdbpp/command.h"
+#include <command.h>
 #include <sqlite3.h>
 
 namespace SQLite {

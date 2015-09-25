@@ -1,22 +1,35 @@
+import package ;
 alias glibmm : : : :
 	<cflags>"`pkg-config --cflags glibmm-2.4`"
 	<linkflags>"`pkg-config --libs glibmm-2.4`"
 	;
 
 lib libsqlite : : <name>sqlite3 ;
+lib adhocutil : : : : <include>/usr/include/adhocutil ;
+lib dbppcore : : : : <include>/usr/include/dbpp ;
+lib boost_date_time ;
+lib boost_filesystem ;
+lib boost_system ;
 
 lib dbpp-sqlite :
 	[ glob *.cpp ] :
 	<library>glibmm
 	<library>libsqlite
-	<library>../libdbpp
+	<library>adhocutil
+	<library>dbppcore
+	<library>boost_date_time
+	<library>boost_system
+	<library>boost_filesystem
+	<cflags>-fvisibility=hidden
 	<cflags>-fvisibility=hidden
 	<variant>release:<cflags>-flto
 	: :
 	<include>.
 	<library>glibmm
-	<library>../libdbpp
+	<library>dbppcore
 	;
 
 build-project unittests ;
+
+package.install install : <install-source-root>. : : dbpp-sqlite : [ glob *.h ] ;
 
