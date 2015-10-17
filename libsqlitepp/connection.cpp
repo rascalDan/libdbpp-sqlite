@@ -126,3 +126,9 @@ SQLite::Connection::bulkUploadData(const char *, size_t) const
 	throw Error("Not implemented");
 }
 
+int64_t
+SQLite::Connection::insertId() const
+{
+	return sqlite3_last_insert_rowid(db);
+}
+

@@ -48,6 +48,7 @@ BOOST_AUTO_TEST_CASE( bindAndSend )
 	mod->bindParamF(1, testDouble);
 	mod->bindParamS(2, testString);
 	mod->execute();
+	BOOST_REQUIRE_EQUAL(2, rw->insertId());
 	delete mod;
 	rw->commitTx();
 	delete rw;
