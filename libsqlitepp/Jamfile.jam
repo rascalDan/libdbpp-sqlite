@@ -22,7 +22,6 @@ lib dbpp-sqlite :
 	<library>boost_filesystem
 	<cflags>-fvisibility=hidden
 	<cflags>-fvisibility=hidden
-	<variant>release:<cflags>-flto
 	: :
 	<include>.
 	<library>glibmm
