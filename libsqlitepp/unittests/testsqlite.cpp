@@ -5,8 +5,8 @@
 #include <dbpp/modifycommand.h>
 #include <dbpp/selectcommand.h>
 #include <dbpp/column.h>
-#include <mock.h>
-#include "testCore.h"
+#include <sqlite-mock.h>
+#include <testCore.h>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 class StandardMockDatabase : public SQLite::Mock {

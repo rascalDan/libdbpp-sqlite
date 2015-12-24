@@ -1,5 +1,5 @@
-#include "mock.h"
-#include "connection.h"
+#include "sqlite-mock.h"
+#include "sqlite-connection.h"
 #include <buffer.h>
 #include <boost/filesystem/operations.hpp>
 

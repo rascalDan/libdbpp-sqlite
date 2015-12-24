@@ -1,4 +1,4 @@
-#include "error.h"
+#include "sqlite-error.h"
 #include <string.h>
 
 SQLite::Error::Error() :

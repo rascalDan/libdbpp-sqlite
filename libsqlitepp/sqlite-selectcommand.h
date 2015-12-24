@@ -2,7 +2,7 @@
 #define SQLITE_SELECTCOMMAND_H
 
 #include <selectcommand.h>
-#include "command.h"
+#include "sqlite-command.h"
 
 namespace SQLite {
 	class Connection;

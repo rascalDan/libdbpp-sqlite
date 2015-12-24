@@ -2,7 +2,7 @@
 #define SQLITE_CONNECTION_H
 
 #include <connection.h>
-#include "error.h"
+#include "sqlite-error.h"
 #include <sqlite3.h>
 
 namespace SQLite {

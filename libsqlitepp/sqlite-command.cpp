@@ -1,5 +1,5 @@
-#include "command.h"
-#include "connection.h"
+#include "sqlite-command.h"
+#include "sqlite-connection.h"
 #include <stdlib.h>
 #include <string.h>
 

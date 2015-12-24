@@ -1,7 +1,7 @@
-#include "connection.h"
-#include "error.h"
-#include "selectcommand.h"
-#include "modifycommand.h"
+#include "sqlite-connection.h"
+#include "sqlite-error.h"
+#include "sqlite-selectcommand.h"
+#include "sqlite-modifycommand.h"
 
 SQLite::Connection::Connection(const std::string & str) :
 	txDepth(0),

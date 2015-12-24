@@ -2,7 +2,7 @@
 #define SQLITE_MODIFYCOMMAND_H
 
 #include <modifycommand.h>
-#include "command.h"
+#include "sqlite-command.h"
 
 namespace SQLite {
 	class Connection;
