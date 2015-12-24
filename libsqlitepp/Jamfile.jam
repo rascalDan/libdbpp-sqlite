@@ -1,8 +1,4 @@
 import package ;
-alias glibmm : : : :
-	<cflags>"`pkg-config --cflags glibmm-2.4`"
-	<linkflags>"`pkg-config --libs glibmm-2.4`"
-	;
 
 lib libsqlite : : <name>sqlite3 ;
 lib adhocutil : : : : <include>/usr/include/adhocutil ;
@@ -13,7 +9,7 @@ lib boost_system ;
 
 lib dbpp-sqlite :
 	[ glob *.cpp ] :
-	<library>glibmm
+	<library>..//glibmm
 	<library>libsqlite
 	<library>adhocutil
 	<library>dbppcore
@@ -24,7 +20,7 @@ lib dbpp-sqlite :
 	<cflags>-fvisibility=hidden
 	: :
 	<include>.
-	<library>glibmm
+	<library>..//glibmm
 	<library>dbppcore
 	;
 
