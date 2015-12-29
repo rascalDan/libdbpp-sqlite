@@ -3,17 +3,19 @@
 #include "sqlite-selectcommand.h"
 #include "sqlite-modifycommand.h"
 
+SQLite::ConnectionError::ConnectionError(sqlite3 * db) :
+	SQLite::Error(db)
+{
+}
+
 SQLite::Connection::Connection(const std::string & str) :
 	txDepth(0),
 	rolledback(false)
 {
 	if (sqlite3_open(str.c_str(), &db) != SQLITE_OK) {
-		if (db) {
-			std::string err(sqlite3_errmsg(db));
-			sqlite3_close(db);
-			throw Error(err.c_str());
-		}
-		throw Error("Unknown error opening database");
+		ConnectionError err(db);
+		sqlite3_close(db);
+		throw err;
 	}
 }
 
@@ -27,7 +29,7 @@ SQLite::Connection::finish() const
 {
 	if (txDepth != 0) {
 		rollbackTx();
-		throw Error("Transaction still open");
+		throw DB::TransactionStillOpen();
 	}
 }
 
@@ -36,7 +38,7 @@ SQLite::Connection::beginTx() const
 {
 	if (txDepth == 0) {
 		if (sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
-			throw Error(sqlite3_errmsg(db));
+			throw Error(db);
 		}
 		rolledback = false;
 	}
@@ -51,7 +53,7 @@ SQLite::Connection::commitTx() const
 	}
 	if (--txDepth == 0) {
 		if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
-			throw Error(sqlite3_errmsg(db));
+			throw Error(db);
 		}
 	}
 	return txDepth;
@@ -62,7 +64,7 @@ SQLite::Connection::rollbackTx() const
 {
 	if (--txDepth == 0) {
 		if (sqlite3_exec(db, "ROLLBACK TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
-			throw Error(sqlite3_errmsg(db));
+			throw Error(db);
 		}
 	}
 	else {
@@ -111,19 +113,19 @@ SQLite::Connection::newModifyCommand(const std::string & sql) const
 void
 SQLite::Connection::beginBulkUpload(const char *, const char *) const
 {
-	throw Error("Not implemented");
+	throw DB::BulkUploadNotSupported();
 }
 
 void
 SQLite::Connection::endBulkUpload(const char *) const
 {
-	throw Error("Not implemented");
+	throw DB::BulkUploadNotSupported();
 }
 
 size_t
 SQLite::Connection::bulkUploadData(const char *, size_t) const
 {
-	throw Error("Not implemented");
+	throw DB::BulkUploadNotSupported();
 }
 
 int64_t

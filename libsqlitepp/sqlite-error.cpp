@@ -1,29 +1,14 @@
 #include "sqlite-error.h"
 #include <string.h>
 
-SQLite::Error::Error() :
-	msg(NULL)
+SQLite::Error::Error(sqlite3 * db) :
+	msg(sqlite3_errmsg(db))
 {
 }
 
-SQLite::Error::Error(const SQLite::Error & e) :
-	msg(e.msg ? strdup(e.msg) : NULL)
+std::string
+SQLite::Error::message() const throw()
 {
-}
-
-SQLite::Error::Error(const char * e) :
-	msg(e ? strdup(e) : NULL)
-{
-}
-
-SQLite::Error::~Error() throw()
-{
-	free(msg);
-}
-
-const char *
-SQLite::Error::what() const throw()
-{
-	return msg ? msg : "No message";
+	return msg;
 }
 

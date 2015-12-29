@@ -37,7 +37,7 @@ namespace SQLite {
 						h.null();
 						return;
 					case SQLITE_BLOB:
-						throw std::runtime_error("Blobs not supported");
+						throw DB::ColumnTypeNotSupported();
 				}
 			}
 
@@ -73,7 +73,7 @@ SQLite::SelectCommand::fetch()
 		case SQLITE_DONE:
 			return false;
 		default:
-			throw Error(sqlite3_errmsg(c->db));
+			throw Error(c->db);
 	}
 }
 

@@ -2,9 +2,9 @@
 #include <boost/test/unit_test.hpp>
 
 #include <definedDirs.h>
-#include <dbpp/modifycommand.h>
-#include <dbpp/selectcommand.h>
-#include <dbpp/column.h>
+#include <modifycommand.h>
+#include <selectcommand.h>
+#include <column.h>
 #include <sqlite-mock.h>
 #include <testCore.h>
 #include <boost/date_time/posix_time/posix_time.hpp>

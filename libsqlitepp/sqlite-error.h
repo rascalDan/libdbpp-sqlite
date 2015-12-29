@@ -2,21 +2,19 @@
 #define SQLITE_ERROR_H
 
 #include <error.h>
+#include <exception.h>
+#include <sqlite3.h>
+#include <visibility.h>
 
 namespace SQLite {
-	class Error : public DB::Error {
+	class Error : public AdHoc::Exception<DB::Error> {
 		public:
-			Error();
-			Error(const Error &);
-			Error(const char *);
-			~Error() throw();
+			Error(sqlite3 *);
 
-			const char * what() const throw();
+			std::string message() const throw() override;
 
 		private:
-			char * msg;
-	};
-	class ConnectionError : public Error, public virtual DB::ConnectionError {
+			std::string msg;
 	};
 }
 

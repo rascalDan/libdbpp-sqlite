@@ -19,12 +19,12 @@ SQLite::ModifyCommand::execute(bool anc)
 {
 	if (sqlite3_step(stmt) != SQLITE_DONE) {
 		sqlite3_reset(stmt);
-		throw Error(sqlite3_errmsg(c->db));
+		throw Error(c->db);
 	}
 	unsigned int rows = sqlite3_changes(c->db);
 	sqlite3_reset(stmt);
 	if (rows == 0 && !anc) {
-		throw Error("No rows affected");
+		throw DB::NoRowsAffected();
 	}
 	return rows;
 }

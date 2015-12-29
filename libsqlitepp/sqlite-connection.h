@@ -6,6 +6,11 @@
 #include <sqlite3.h>
 
 namespace SQLite {
+	class ConnectionError : public virtual Error, public virtual DB::ConnectionError {
+		public:
+			ConnectionError(sqlite3 *);
+	};
+
 	class Connection : public DB::Connection {
 		public:
 			Connection(const std::string & info);
