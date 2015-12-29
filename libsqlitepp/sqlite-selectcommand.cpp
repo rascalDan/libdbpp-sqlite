@@ -41,10 +41,6 @@ namespace SQLite {
 				}
 			}
 
-			void rebind(DB::Command*, unsigned int) const {
-				throw std::runtime_error("Not implemented");
-			}
-
 		private:
 			sqlite3_stmt * const stmt;
 	};
