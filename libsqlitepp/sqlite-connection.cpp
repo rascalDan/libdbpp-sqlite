@@ -8,9 +8,7 @@ SQLite::ConnectionError::ConnectionError(sqlite3 * db) :
 {
 }
 
-SQLite::Connection::Connection(const std::string & str) :
-	txDepth(0),
-	rolledback(false)
+SQLite::Connection::Connection(const std::string & str)
 {
 	if (sqlite3_open(str.c_str(), &db) != SQLITE_OK) {
 		ConnectionError err(db);
@@ -25,58 +23,27 @@ SQLite::Connection::~Connection()
 }
 
 void
-SQLite::Connection::finish() const
+SQLite::Connection::beginTxInt()
 {
-	if (txDepth != 0) {
-		rollbackTx();
-		throw DB::TransactionStillOpen();
+	if (sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
+		throw Error(db);
 	}
 }
 
-int
-SQLite::Connection::beginTx() const
+void
+SQLite::Connection::commitTxInt()
 {
-	if (txDepth == 0) {
-		if (sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
-			throw Error(db);
-		}
-		rolledback = false;
+	if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
+		throw Error(db);
 	}
-	return ++txDepth;
 }
 
-int
-SQLite::Connection::commitTx() const
+void
+SQLite::Connection::rollbackTxInt()
 {
-	if (rolledback) {
-		return rollbackTx();
+	if (sqlite3_exec(db, "ROLLBACK TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
+		throw Error(db);
 	}
-	if (--txDepth == 0) {
-		if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
-			throw Error(db);
-		}
-	}
-	return txDepth;
-}
-
-int
-SQLite::Connection::rollbackTx() const
-{
-	if (--txDepth == 0) {
-		if (sqlite3_exec(db, "ROLLBACK TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
-			throw Error(db);
-		}
-	}
-	else {
-		rolledback = true;
-	}
-	return txDepth;
-}
-
-bool
-SQLite::Connection::inTx() const
-{
-	return txDepth;
 }
 
 DB::BulkDeleteStyle

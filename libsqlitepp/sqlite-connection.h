@@ -16,11 +16,9 @@ namespace SQLite {
 			Connection(const std::string & info);
 			~Connection();
 
-			void finish() const override;
-			int beginTx() const override;
-			int commitTx() const override;
-			int rollbackTx() const override;
-			bool inTx() const override;
+			void beginTxInt() override;
+			void commitTxInt() override;
+			void rollbackTxInt() override;
 			void ping() const override;
 			DB::BulkDeleteStyle bulkDeleteStyle() const override;
 			DB::BulkUpdateStyle bulkUpdateStyle() const override;
@@ -31,10 +29,6 @@ namespace SQLite {
 			int64_t insertId() override;
 
 			sqlite3 * db;
-
-		private:
-			mutable unsigned int txDepth;
-			mutable bool rolledback;
 	};
 }
 

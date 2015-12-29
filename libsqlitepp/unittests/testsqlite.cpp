@@ -50,7 +50,6 @@ BOOST_AUTO_TEST_CASE( bindAndSend )
 	mod->execute();
 	BOOST_REQUIRE_EQUAL(2, rw->insertId());
 	delete mod;
-	rw->commitTx();
 	delete rw;
 }
 
