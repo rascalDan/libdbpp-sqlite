@@ -14,11 +14,11 @@ namespace SQLite {
 			{
 			}
 
-			bool isNull() const {
+			bool isNull() const override {
 				return (SQLITE_NULL == sqlite3_column_type(stmt, colNo));
 			}
 
-			void apply(DB::HandleField & h) const {
+			void apply(DB::HandleField & h) const override {
 				switch (sqlite3_column_type(stmt, colNo)) {
 					case SQLITE_INTEGER:
 						h.integer(sqlite3_column_int64(stmt, colNo));
