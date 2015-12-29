@@ -111,7 +111,7 @@ SQLite::Connection::newModifyCommand(const std::string & sql)
 }
 
 int64_t
-SQLite::Connection::insertId() const
+SQLite::Connection::insertId()
 {
 	return sqlite3_last_insert_rowid(db);
 }
