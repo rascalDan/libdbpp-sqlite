@@ -110,24 +110,6 @@ SQLite::Connection::newModifyCommand(const std::string & sql) const
 	return new ModifyCommand(this, sql);
 }
 
-void
-SQLite::Connection::beginBulkUpload(const char *, const char *) const
-{
-	throw DB::BulkUploadNotSupported();
-}
-
-void
-SQLite::Connection::endBulkUpload(const char *) const
-{
-	throw DB::BulkUploadNotSupported();
-}
-
-size_t
-SQLite::Connection::bulkUploadData(const char *, size_t) const
-{
-	throw DB::BulkUploadNotSupported();
-}
-
 int64_t
 SQLite::Connection::insertId() const
 {

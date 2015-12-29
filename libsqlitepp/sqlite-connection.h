@@ -28,10 +28,6 @@ namespace SQLite {
 			DB::SelectCommand * newSelectCommand(const std::string & sql) const override;
 			DB::ModifyCommand * newModifyCommand(const std::string & sql) const override;
 
-			void	beginBulkUpload(const char *, const char *) const override;
-			void	endBulkUpload(const char *) const override;
-			size_t bulkUploadData(const char *, size_t) const override;
-
 			int64_t insertId() const override;
 
 			sqlite3 * db;
