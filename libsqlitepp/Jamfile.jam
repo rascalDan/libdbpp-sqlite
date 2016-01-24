@@ -16,8 +16,6 @@ lib dbpp-sqlite :
 	<library>boost_date_time
 	<library>boost_system
 	<library>boost_filesystem
-	<cflags>-fvisibility=hidden
-	<cflags>-fvisibility=hidden
 	: :
 	<include>.
 	<library>..//glibmm
