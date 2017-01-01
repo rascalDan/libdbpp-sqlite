@@ -3,14 +3,21 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem/operations.hpp>
 
+NAMEDFACTORY("sqlite", SQLite::Mock, DB::MockDatabaseFactory);
+
 namespace SQLite {
 
-Mock::Mock(const std::string & name, const std::vector<boost::filesystem::path> & ss) :
+Mock::Mock(const std::string & root, const std::string & name, const std::vector<boost::filesystem::path> & ss) :
 	MockDatabase(name),
-	testDbPath(boost::filesystem::path("/tmp") / "sqliteut" / boost::lexical_cast<std::string>(getpid()) / boost::lexical_cast<std::string>(++DB::MockDatabase::mocked))
+	testDbPath(boost::filesystem::path(root) / boost::lexical_cast<std::string>(getpid()) / boost::lexical_cast<std::string>(++DB::MockDatabase::mocked))
 {
 	CreateNewDatabase();
 	PlaySchemaScripts(ss);
+}
+
+Mock::Mock(const std::string & name, const std::vector<boost::filesystem::path> & ss) :
+	Mock("/tmp/sqliteut", name, ss)
+{
 }
 
 DB::Connection *

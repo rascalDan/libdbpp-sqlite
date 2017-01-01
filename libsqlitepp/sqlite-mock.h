@@ -9,6 +9,7 @@ namespace SQLite {
 
 class DLL_PUBLIC Mock : public DB::MockDatabase {
 	public:
+		Mock(const std::string & root, const std::string & name, const std::vector<boost::filesystem::path> & ss);
 		Mock(const std::string & name, const std::vector<boost::filesystem::path> & ss);
 		~Mock();
 
