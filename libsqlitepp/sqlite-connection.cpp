@@ -68,13 +68,13 @@ SQLite::Connection::ping() const
 
 
 DB::SelectCommand *
-SQLite::Connection::newSelectCommand(const std::string & sql)
+SQLite::Connection::newSelectCommand(const std::string & sql, const DB::CommandOptions *)
 {
 	return new SelectCommand(this, sql);
 }
 
 DB::ModifyCommand *
-SQLite::Connection::newModifyCommand(const std::string & sql)
+SQLite::Connection::newModifyCommand(const std::string & sql, const DB::CommandOptions *)
 {
 	return new ModifyCommand(this, sql);
 }
