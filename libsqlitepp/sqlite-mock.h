@@ -17,7 +17,7 @@ class DLL_PUBLIC Mock : public DB::MockDatabase {
 		void DropDatabase() const override;
 		void CreateNewDatabase() const override;
 
-		DB::Connection * openConnection() const override;
+		DB::ConnectionPtr openConnection() const override;
 
 	private:
 		const boost::filesystem::path testDbPath;

@@ -9,9 +9,9 @@
 #include <testCore.h>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-class StandardMockDatabase : public SQLite::Mock {
+class StandardMockDatabase : public DB::PluginMock<SQLite::Mock> {
 	public:
-		StandardMockDatabase() : SQLite::Mock("sqlitemock", {
+		StandardMockDatabase() : DB::PluginMock<SQLite::Mock>("", "sqlitemock", {
 				rootDir / "sqliteschema.sql" })
 		{
 		}
@@ -35,29 +35,25 @@ BOOST_AUTO_TEST_CASE( transactions )
 	BOOST_REQUIRE_EQUAL(true, ro->inTx());
 	ro->commitTx();
 	BOOST_REQUIRE_EQUAL(false, ro->inTx());
-
-	delete ro;
 }
 
 BOOST_AUTO_TEST_CASE( bindAndSend )
 {
 	auto rw = DB::MockDatabase::openConnectionTo("sqlitemock");
 
-	auto mod = rw->newModifyCommand("INSERT INTO test VALUES(?, ?, ?)");
+	auto mod = rw->modify("INSERT INTO test VALUES(?, ?, ?)");
 	mod->bindParamI(0, testInt);
 	mod->bindParamF(1, testDouble);
 	mod->bindParamS(2, testString);
 	mod->execute();
 	BOOST_REQUIRE_EQUAL(2, rw->insertId());
-	delete mod;
-	delete rw;
 }
 
 BOOST_AUTO_TEST_CASE( bindAndSelect )
 {
 	auto ro = DB::MockDatabase::openConnectionTo("sqlitemock");
 
-	auto select = ro->newSelectCommand("SELECT * FROM test WHERE id = ?");
+	auto select = ro->select("SELECT * FROM test WHERE id = ?");
 	select->bindParamI(0, testInt);
 	select->execute();
 	int rows = 0;
@@ -67,9 +63,7 @@ BOOST_AUTO_TEST_CASE( bindAndSelect )
 		assertColumnValueHelper(*select, 2, testString);
 		rows += 1;
 	}
-	delete select;
 	BOOST_REQUIRE_EQUAL(1, rows);
-	delete ro;
 }
 
 BOOST_AUTO_TEST_SUITE_END();

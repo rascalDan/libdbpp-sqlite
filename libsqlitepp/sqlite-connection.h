@@ -23,8 +23,8 @@ namespace SQLite {
 			DB::BulkDeleteStyle bulkDeleteStyle() const override;
 			DB::BulkUpdateStyle bulkUpdateStyle() const override;
 
-			DB::SelectCommand * newSelectCommand(const std::string & sql, const DB::CommandOptions *) override;
-			DB::ModifyCommand * newModifyCommand(const std::string & sql, const DB::CommandOptions *) override;
+			DB::SelectCommandPtr select(const std::string & sql, const DB::CommandOptionsCPtr &) override;
+			DB::ModifyCommandPtr modify(const std::string & sql, const DB::CommandOptionsCPtr &) override;
 
 			int64_t insertId() override;
 

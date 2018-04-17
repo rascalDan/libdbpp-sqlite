@@ -67,16 +67,16 @@ SQLite::Connection::ping() const
 }
 
 
-DB::SelectCommand *
-SQLite::Connection::newSelectCommand(const std::string & sql, const DB::CommandOptions *)
+DB::SelectCommandPtr
+SQLite::Connection::select(const std::string & sql, const DB::CommandOptionsCPtr &)
 {
-	return new SelectCommand(this, sql);
+	return std::make_shared<SelectCommand>(this, sql);
 }
 
-DB::ModifyCommand *
-SQLite::Connection::newModifyCommand(const std::string & sql, const DB::CommandOptions *)
+DB::ModifyCommandPtr
+SQLite::Connection::modify(const std::string & sql, const DB::CommandOptionsCPtr &)
 {
-	return new ModifyCommand(this, sql);
+	return std::make_shared<ModifyCommand>(this, sql);
 }
 
 int64_t

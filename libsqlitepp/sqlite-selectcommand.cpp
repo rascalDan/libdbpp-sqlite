@@ -66,7 +66,7 @@ SQLite::SelectCommand::fetch()
 		case SQLITE_ROW:
 			if (columns->empty()) {
 				for (int c = sqlite3_data_count(stmt) - 1; c >= 0; c -= 1) {
-					insertColumn(DB::ColumnPtr(new Column(sqlite3_column_name(stmt, c), c, stmt)));
+					insertColumn(std::make_shared<Column>(sqlite3_column_name(stmt, c), c, stmt));
 				}
 			}
 			return true;
