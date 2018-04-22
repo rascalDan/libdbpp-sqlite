@@ -7,8 +7,8 @@ NAMEDFACTORY("sqlite", SQLite::Mock, DB::MockDatabaseFactory);
 
 namespace SQLite {
 
-Mock::Mock(const std::string & root, const std::string &, const std::vector<boost::filesystem::path> & ss) :
-	testDbPath(boost::filesystem::path(root) / boost::lexical_cast<std::string>(getpid()) / boost::lexical_cast<std::string>(++DB::MockDatabase::mocked))
+Mock::Mock(const std::string & root, const std::string & name, const std::vector<boost::filesystem::path> & ss) :
+	testDbPath(boost::filesystem::path(root) / name / boost::lexical_cast<std::string>(getpid()) / boost::lexical_cast<std::string>(++DB::MockDatabase::mocked))
 {
 	CreateNewDatabase();
 	PlaySchemaScripts(ss);

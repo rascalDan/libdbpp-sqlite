@@ -11,7 +11,7 @@
 
 class StandardMockDatabase : public DB::PluginMock<SQLite::Mock> {
 	public:
-		StandardMockDatabase() : DB::PluginMock<SQLite::Mock>("", "sqlitemock", {
+		StandardMockDatabase() : DB::PluginMock<SQLite::Mock>("sqlitemock", {
 				rootDir / "sqliteschema.sql" })
 		{
 		}
