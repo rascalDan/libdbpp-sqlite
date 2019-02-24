@@ -9,13 +9,8 @@ namespace SQLite {
 	class ModifyCommand : public DB::ModifyCommand, public Command {
 		public:
 			ModifyCommand(const Connection *, const std::string & sql);
-			virtual ~ModifyCommand();
 
 			unsigned int execute(bool) override;
-
-		private:
-			void prepare() const;
-			mutable bool prepared;
 	};
 }
 

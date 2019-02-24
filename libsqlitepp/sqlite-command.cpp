@@ -1,13 +1,14 @@
 #include "sqlite-command.h"
 #include "sqlite-connection.h"
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 SQLite::Command::Command(const Connection * conn, const std::string & sql) :
 	DB::Command(sql),
-	c(conn)
+	c(conn),
+	stmt(nullptr)
 {
-	if (sqlite3_prepare_v2(conn->db, sql.c_str(), sql.length(), &stmt, NULL) != SQLITE_OK) {
+	if (sqlite3_prepare_v2(conn->db, sql.c_str(), sql.length(), &stmt, nullptr) != SQLITE_OK) {
 		throw Error(conn->db);
 	}
 }

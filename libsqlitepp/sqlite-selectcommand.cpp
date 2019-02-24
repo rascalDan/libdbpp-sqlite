@@ -1,7 +1,7 @@
 #include "sqlite-selectcommand.h"
 #include "sqlite-connection.h"
 #include "sqlite-error.h"
-#include <string.h>
+#include <cstring>
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/ordered_index.hpp>
 

@@ -7,9 +7,9 @@ NAMEDFACTORY("sqlite", SQLite::Mock, DB::MockDatabaseFactory);
 namespace SQLite {
 
 Mock::Mock(const std::string & root, const std::string & name, const std::vector<std::filesystem::path> & ss) :
-	testDbPath(std::filesystem::path(root) / name / boost::lexical_cast<std::string>(getpid()) / boost::lexical_cast<std::string>(++DB::MockDatabase::mocked))
+	testDbPath(std::filesystem::path(root) / name / std::to_string(getpid()) / std::to_string(++DB::MockDatabase::mocked))
 {
-	CreateNewDatabase();
+	Mock::CreateNewDatabase();
 	PlaySchemaScripts(ss);
 }
 
@@ -26,7 +26,7 @@ Mock::openConnection() const
 
 Mock::~Mock()
 {
-	DropDatabase();
+	Mock::DropDatabase();
 }
 
 void Mock::DropDatabase() const
@@ -37,7 +37,7 @@ void Mock::DropDatabase() const
 void Mock::CreateNewDatabase() const
 {
 	std::filesystem::create_directories(testDbPath.parent_path());
-	openConnection(); // Triggers file creation
+	Mock::openConnection(); // Triggers file creation
 }
 
 }

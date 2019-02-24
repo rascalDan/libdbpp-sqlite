@@ -11,7 +11,7 @@ namespace SQLite {
 		public:
 			Error(sqlite3 *);
 
-			std::string message() const throw() override;
+			std::string message() const noexcept override;
 
 		private:
 			std::string msg;

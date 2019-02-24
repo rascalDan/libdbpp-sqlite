@@ -1,5 +1,5 @@
 #include "sqlite-error.h"
-#include <string.h>
+#include <cstring>
 
 SQLite::Error::Error(sqlite3 * db) :
 	msg(sqlite3_errmsg(db))
@@ -7,7 +7,7 @@ SQLite::Error::Error(sqlite3 * db) :
 }
 
 std::string
-SQLite::Error::message() const throw()
+SQLite::Error::message() const noexcept
 {
 	return msg;
 }

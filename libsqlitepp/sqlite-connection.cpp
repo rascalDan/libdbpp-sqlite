@@ -10,12 +10,12 @@ SQLite::ConnectionError::ConnectionError(sqlite3 * db) :
 {
 }
 
-SQLite::Connection::Connection(const std::string & str)
+SQLite::Connection::Connection(const std::string & str) :
+	db(nullptr)
 {
 	if (sqlite3_open(str.c_str(), &db) != SQLITE_OK) {
-		ConnectionError err(db);
-		sqlite3_close(db);
-		throw err;
+		auto dbp = std::unique_ptr<sqlite3, decltype(&sqlite3_close)>(db, &sqlite3_close);
+		throw ConnectionError(dbp.get());
 	}
 }
 
@@ -27,7 +27,7 @@ SQLite::Connection::~Connection()
 void
 SQLite::Connection::beginTxInt()
 {
-	if (sqlite3_exec(db, "BEGIN TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
+	if (sqlite3_exec(db, "BEGIN TRANSACTION", nullptr, nullptr, nullptr) != SQLITE_OK) {
 		throw Error(db);
 	}
 }
@@ -35,7 +35,7 @@ SQLite::Connection::beginTxInt()
 void
 SQLite::Connection::commitTxInt()
 {
-	if (sqlite3_exec(db, "COMMIT TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
+	if (sqlite3_exec(db, "COMMIT TRANSACTION", nullptr, nullptr, nullptr) != SQLITE_OK) {
 		throw Error(db);
 	}
 }
@@ -43,7 +43,7 @@ SQLite::Connection::commitTxInt()
 void
 SQLite::Connection::rollbackTxInt()
 {
-	if (sqlite3_exec(db, "ROLLBACK TRANSACTION", NULL, NULL, NULL) != SQLITE_OK) {
+	if (sqlite3_exec(db, "ROLLBACK TRANSACTION", nullptr, nullptr, nullptr) != SQLITE_OK) {
 		throw Error(db);
 	}
 }
