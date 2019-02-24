@@ -30,7 +30,7 @@ namespace SQLite {
 						{
 							auto t = sqlite3_column_text(stmt, colNo);
 							auto l = sqlite3_column_bytes(stmt, colNo);
-							h.string(reinterpret_cast<const char *>(t), l);
+							h.string({ reinterpret_cast<const char *>(t), (std::size_t)l });
 							return;
 						}
 					case SQLITE_NULL:
@@ -66,7 +66,7 @@ SQLite::SelectCommand::fetch()
 		case SQLITE_ROW:
 			if (!columnCount()) {
 				for (int c = sqlite3_data_count(stmt) - 1; c >= 0; c -= 1) {
-					insertColumn(std::make_shared<Column>(sqlite3_column_name(stmt, c), c, stmt));
+					insertColumn(std::make_unique<Column>(sqlite3_column_name(stmt, c), c, stmt));
 				}
 			}
 			return true;

@@ -76,7 +76,12 @@ SQLite::Command::bindParamF(unsigned int n, float v)
 void
 SQLite::Command::bindParamS(unsigned int n, const Glib::ustring & s)
 {
-	if (sqlite3_bind_text(stmt, n + 1, s.c_str(), s.length(), SQLITE_STATIC) != SQLITE_OK) {
+	return bindParamS(n, std::string_view(s.raw()));
+}
+void
+SQLite::Command::bindParamS(unsigned int n, const std::string_view & s)
+{
+	if (sqlite3_bind_text(stmt, n + 1, s.data(), s.length(), SQLITE_STATIC) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }

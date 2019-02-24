@@ -2,15 +2,15 @@
 #define MOCKSQLITEDATASOURCE_H
 
 #include <mockDatabase.h>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <visibility.h>
 
 namespace SQLite {
 
 class DLL_PUBLIC Mock : public DB::MockDatabase {
 	public:
-		Mock(const std::string & root, const std::string & name, const std::vector<boost::filesystem::path> & ss);
-		Mock(const std::string & name, const std::vector<boost::filesystem::path> & ss);
+		Mock(const std::string & root, const std::string & name, const std::vector<std::filesystem::path> & ss);
+		Mock(const std::string & name, const std::vector<std::filesystem::path> & ss);
 		~Mock();
 
 	protected:
@@ -20,7 +20,7 @@ class DLL_PUBLIC Mock : public DB::MockDatabase {
 		DB::ConnectionPtr openConnection() const override;
 
 	private:
-		const boost::filesystem::path testDbPath;
+		const std::filesystem::path testDbPath;
 };
 
 }

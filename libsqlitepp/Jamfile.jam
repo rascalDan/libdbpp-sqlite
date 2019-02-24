@@ -4,8 +4,7 @@ lib libsqlite : : <name>sqlite3 ;
 lib adhocutil : : : : <include>/usr/include/adhocutil ;
 lib dbppcore : : : : <include>/usr/include/dbpp ;
 lib boost_date_time ;
-lib boost_filesystem ;
-lib boost_system ;
+lib stdc++fs ;
 
 lib dbpp-sqlite :
 	[ glob *.cpp ] :
@@ -14,8 +13,7 @@ lib dbpp-sqlite :
 	<library>adhocutil
 	<library>dbppcore
 	<library>boost_date_time
-	<library>boost_system
-	<library>boost_filesystem
+	<library>stdc++fs
 	: :
 	<include>.
 	<library>..//glibmm

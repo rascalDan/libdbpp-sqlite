@@ -24,6 +24,7 @@ namespace SQLite {
 			void bindParamF(unsigned int, float) override;
 
 			void bindParamS(unsigned int, const Glib::ustring&) override;
+			void bindParamS(unsigned int, const std::string_view&) override;
 
 			void bindParamT(unsigned int, const boost::posix_time::time_duration &) override;
 			void bindParamT(unsigned int, const boost::posix_time::ptime &) override;
