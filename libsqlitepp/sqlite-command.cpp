@@ -21,56 +21,56 @@ SQLite::Command::~Command()
 void
 SQLite::Command::bindParamI(unsigned int n, int v)
 {
-	if (sqlite3_bind_int(stmt, n + 1, v) != SQLITE_OK) {
+	if (sqlite3_bind_int(stmt, (int)n + 1, v) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }
 void
 SQLite::Command::bindParamI(unsigned int n, long int v)
 {
-	if (sqlite3_bind_int64(stmt, n + 1, v) != SQLITE_OK) {
+	if (sqlite3_bind_int64(stmt, (int)n + 1, v) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }
 void
 SQLite::Command::bindParamI(unsigned int n, long long int v)
 {
-	if (sqlite3_bind_int64(stmt, n + 1, v) != SQLITE_OK) {
+	if (sqlite3_bind_int64(stmt, (int)n + 1, v) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }
 void
 SQLite::Command::bindParamI(unsigned int n, unsigned int v)
 {
-	if (sqlite3_bind_int64(stmt, n + 1, v) != SQLITE_OK) {
+	if (sqlite3_bind_int64(stmt, (int)n + 1, v) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }
 void
 SQLite::Command::bindParamI(unsigned int n, long unsigned int v)
 {
-	if (sqlite3_bind_int64(stmt, n + 1, v) != SQLITE_OK) {
+	if (sqlite3_bind_int64(stmt, (int)n + 1, v) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }
 void
 SQLite::Command::bindParamI(unsigned int n, long long unsigned int v)
 {
-	if (sqlite3_bind_int64(stmt, n + 1, v) != SQLITE_OK) {
+	if (sqlite3_bind_int64(stmt, (int)n + 1, v) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }
 void
 SQLite::Command::bindParamF(unsigned int n, double v)
 {
-	if (sqlite3_bind_double(stmt, n + 1, v) != SQLITE_OK) {
+	if (sqlite3_bind_double(stmt, (int)n + 1, v) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }
 void
 SQLite::Command::bindParamF(unsigned int n, float v)
 {
-	if (sqlite3_bind_double(stmt, n + 1, v) != SQLITE_OK) {
+	if (sqlite3_bind_double(stmt, (int)n + 1, v) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }
@@ -82,7 +82,7 @@ SQLite::Command::bindParamS(unsigned int n, const Glib::ustring & s)
 void
 SQLite::Command::bindParamS(unsigned int n, const std::string_view & s)
 {
-	if (sqlite3_bind_text(stmt, n + 1, s.data(), s.length(), SQLITE_STATIC) != SQLITE_OK) {
+	if (sqlite3_bind_text(stmt, (int)n + 1, s.data(), s.length(), SQLITE_STATIC) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }
@@ -104,7 +104,7 @@ SQLite::Command::bindParamT(unsigned int, const boost::posix_time::ptime &)
 void
 SQLite::Command::bindNull(unsigned int n)
 {
-	if (sqlite3_bind_null(stmt, n + 1) != SQLITE_OK) {
+	if (sqlite3_bind_null(stmt, (int)n + 1) != SQLITE_OK) {
 		throw Error(c->db);
 	}
 }

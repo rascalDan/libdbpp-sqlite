@@ -14,22 +14,22 @@ namespace SQLite {
 			{
 			}
 
-			bool isNull() const override {
-				return (SQLITE_NULL == sqlite3_column_type(stmt, colNo));
+			[[nodiscard]] bool isNull() const override {
+				return (SQLITE_NULL == sqlite3_column_type(stmt, (int)colNo));
 			}
 
 			void apply(DB::HandleField & h) const override {
-				switch (sqlite3_column_type(stmt, colNo)) {
+				switch (sqlite3_column_type(stmt, (int)colNo)) {
 					case SQLITE_INTEGER:
-						h.integer(sqlite3_column_int64(stmt, colNo));
+						h.integer(sqlite3_column_int64(stmt, (int)colNo));
 						return;
 					case SQLITE_FLOAT:
-						h.floatingpoint(sqlite3_column_double(stmt, colNo));
+						h.floatingpoint(sqlite3_column_double(stmt, (int)colNo));
 						return;
 					case SQLITE_TEXT:
 						{
-							auto t = sqlite3_column_text(stmt, colNo);
-							auto l = sqlite3_column_bytes(stmt, colNo);
+							auto t = sqlite3_column_text(stmt, (int)colNo);
+							auto l = sqlite3_column_bytes(stmt, (int)colNo);
 							h.string({ reinterpret_cast<const char *>(t), (std::size_t)l });
 							return;
 						}
