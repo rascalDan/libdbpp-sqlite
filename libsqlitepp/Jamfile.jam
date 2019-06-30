@@ -1,6 +1,5 @@
 import package ;
 
-lib libsqlite : : <name>sqlite3 ;
 lib adhocutil : : : : <include>/usr/include/adhocutil ;
 lib dbppcore : : : : <include>/usr/include/dbpp ;
 lib boost_date_time ;
@@ -9,7 +8,7 @@ lib stdc++fs ;
 lib dbpp-sqlite :
 	[ glob *.cpp ] :
 	<library>..//glibmm
-	<library>libsqlite
+	<library>..//sqlite3
 	<library>adhocutil
 	<library>dbppcore
 	<library>boost_date_time
