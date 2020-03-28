@@ -37,7 +37,7 @@ void Mock::DropDatabase() const
 void Mock::CreateNewDatabase() const
 {
 	std::filesystem::create_directories(testDbPath.parent_path());
-	Mock::openConnection(); // Triggers file creation
+	(void) Mock::openConnection(); // Triggers file creation
 }
 
 }
