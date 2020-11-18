@@ -1,55 +1,52 @@
 #include "sqlite-selectcommand.h"
 #include "sqlite-connection.h"
 #include "sqlite-error.h"
-#include <cstring>
-#include <boost/multi_index_container.hpp>
 #include <boost/multi_index/ordered_index.hpp>
+#include <boost/multi_index_container.hpp>
+#include <cstring>
 
 namespace SQLite {
 	class Column : public DB::Column {
-		public:
-			Column(const Glib::ustring & n, unsigned int i, sqlite3_stmt * s) :
-				DB::Column(n, i),
-				stmt(s)
-			{
-			}
+	public:
+		Column(const Glib::ustring & n, unsigned int i, sqlite3_stmt * s) : DB::Column(n, i), stmt(s) { }
 
-			[[nodiscard]] bool isNull() const override {
-				return (SQLITE_NULL == sqlite3_column_type(stmt, (int)colNo));
-			}
+		[[nodiscard]] bool
+		isNull() const override
+		{
+			return (SQLITE_NULL == sqlite3_column_type(stmt, (int)colNo));
+		}
 
-			void apply(DB::HandleField & h) const override {
-				switch (sqlite3_column_type(stmt, (int)colNo)) {
-					case SQLITE_INTEGER:
-						h.integer(sqlite3_column_int64(stmt, (int)colNo));
-						return;
-					case SQLITE_FLOAT:
-						h.floatingpoint(sqlite3_column_double(stmt, (int)colNo));
-						return;
-					case SQLITE_TEXT:
-						{
-							auto t = sqlite3_column_text(stmt, (int)colNo);
-							auto l = sqlite3_column_bytes(stmt, (int)colNo);
-							h.string({ reinterpret_cast<const char *>(t), (std::size_t)l });
-							return;
-						}
-					case SQLITE_NULL:
-						h.null();
-						return;
-					case SQLITE_BLOB:
-						throw DB::ColumnTypeNotSupported();
+		void
+		apply(DB::HandleField & h) const override
+		{
+			switch (sqlite3_column_type(stmt, (int)colNo)) {
+				case SQLITE_INTEGER:
+					h.integer(sqlite3_column_int64(stmt, (int)colNo));
+					return;
+				case SQLITE_FLOAT:
+					h.floatingpoint(sqlite3_column_double(stmt, (int)colNo));
+					return;
+				case SQLITE_TEXT: {
+					auto t = sqlite3_column_text(stmt, (int)colNo);
+					auto l = sqlite3_column_bytes(stmt, (int)colNo);
+					h.string({reinterpret_cast<const char *>(t), (std::size_t)l});
+					return;
 				}
+				case SQLITE_NULL:
+					h.null();
+					return;
+				case SQLITE_BLOB:
+					throw DB::ColumnTypeNotSupported();
 			}
+		}
 
-		private:
-			sqlite3_stmt * const stmt;
+	private:
+		sqlite3_stmt * const stmt;
 	};
 }
 
 SQLite::SelectCommand::SelectCommand(const Connection * conn, const std::string & sql) :
-	DB::Command(sql),
-	DB::SelectCommand(sql),
-	SQLite::Command(conn, sql)
+	DB::Command(sql), DB::SelectCommand(sql), SQLite::Command(conn, sql)
 {
 }
 
@@ -76,4 +73,3 @@ SQLite::SelectCommand::fetch()
 			throw Error(c->db);
 	}
 }
-

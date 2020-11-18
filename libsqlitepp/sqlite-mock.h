@@ -1,14 +1,14 @@
 #ifndef MOCKSQLITEDATASOURCE_H
 #define MOCKSQLITEDATASOURCE_H
 
-#include <mockDatabase.h>
-#include <filesystem>
-#include <visibility.h>
 #include <c++11Helpers.h>
+#include <filesystem>
+#include <mockDatabase.h>
+#include <visibility.h>
 
 namespace SQLite {
 
-class DLL_PUBLIC Mock : public DB::MockDatabase {
+	class DLL_PUBLIC Mock : public DB::MockDatabase {
 	public:
 		Mock(const std::string & root, const std::string & name, const std::vector<std::filesystem::path> & ss);
 		Mock(const std::string & name, const std::vector<std::filesystem::path> & ss);
@@ -24,10 +24,8 @@ class DLL_PUBLIC Mock : public DB::MockDatabase {
 
 	private:
 		const std::filesystem::path testDbPath;
-};
+	};
 
 }
 
 #endif
-
-

@@ -1,17 +1,13 @@
 #include "sqlite-connection.h"
 #include "sqlite-error.h"
-#include "sqlite-selectcommand.h"
 #include "sqlite-modifycommand.h"
+#include "sqlite-selectcommand.h"
 
 NAMEDFACTORY("sqlite", SQLite::Connection, DB::ConnectionFactory);
 
-SQLite::ConnectionError::ConnectionError(sqlite3 * db) :
-	SQLite::Error(db)
-{
-}
+SQLite::ConnectionError::ConnectionError(sqlite3 * db) : SQLite::Error(db) { }
 
-SQLite::Connection::Connection(const std::string & str) :
-	db(nullptr)
+SQLite::Connection::Connection(const std::string & str) : db(nullptr)
 {
 	if (sqlite3_open(str.c_str(), &db) != SQLITE_OK) {
 		auto dbp = std::unique_ptr<sqlite3, decltype(&sqlite3_close)>(db, &sqlite3_close);
@@ -66,7 +62,6 @@ SQLite::Connection::ping() const
 	// Can this fail?
 }
 
-
 DB::SelectCommandPtr
 SQLite::Connection::select(const std::string & sql, const DB::CommandOptionsCPtr &)
 {
@@ -84,4 +79,3 @@ SQLite::Connection::insertId()
 {
 	return sqlite3_last_insert_rowid(db);
 }
-

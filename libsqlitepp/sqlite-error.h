@@ -8,15 +8,14 @@
 
 namespace SQLite {
 	class Error : public AdHoc::Exception<DB::Error> {
-		public:
-			Error(sqlite3 *);
+	public:
+		Error(sqlite3 *);
 
-			std::string message() const noexcept override;
+		std::string message() const noexcept override;
 
-		private:
-			std::string msg;
+	private:
+		std::string msg;
 	};
 }
 
 #endif
-

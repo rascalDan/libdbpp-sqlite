@@ -3,10 +3,7 @@
 #include <cstdlib>
 #include <cstring>
 
-SQLite::Command::Command(const Connection * conn, const std::string & sql) :
-	DB::Command(sql),
-	c(conn),
-	stmt(nullptr)
+SQLite::Command::Command(const Connection * conn, const std::string & sql) : DB::Command(sql), c(conn), stmt(nullptr)
 {
 	if (sqlite3_prepare_v2(conn->db, sql.c_str(), sql.length(), &stmt, nullptr) != SQLITE_OK) {
 		throw Error(conn->db);
@@ -108,4 +105,3 @@ SQLite::Command::bindNull(unsigned int n)
 		throw Error(c->db);
 	}
 }
-

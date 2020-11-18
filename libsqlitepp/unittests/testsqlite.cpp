@@ -1,27 +1,24 @@
 #define BOOST_TEST_MODULE TestSQLite
 #include <boost/test/unit_test.hpp>
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <column.h>
 #include <definedDirs.h>
 #include <modifycommand.h>
 #include <selectcommand.h>
-#include <column.h>
 #include <sqlite-mock.h>
 #include <testCore.h>
-#include <boost/date_time/posix_time/posix_time.hpp>
 
 class StandardMockDatabase : public DB::PluginMock<SQLite::Mock> {
-	public:
-		StandardMockDatabase() : DB::PluginMock<SQLite::Mock>("sqlitemock", {
-				rootDir / "sqliteschema.sql" })
-		{
-		}
+public:
+	StandardMockDatabase() : DB::PluginMock<SQLite::Mock>("sqlitemock", {rootDir / "sqliteschema.sql"}) { }
 };
 
-BOOST_GLOBAL_FIXTURE( StandardMockDatabase );
+BOOST_GLOBAL_FIXTURE(StandardMockDatabase);
 
-BOOST_FIXTURE_TEST_SUITE( Core, DB::TestCore );
+BOOST_FIXTURE_TEST_SUITE(Core, DB::TestCore);
 
-BOOST_AUTO_TEST_CASE( transactions )
+BOOST_AUTO_TEST_CASE(transactions)
 {
 	auto ro = DB::MockDatabase::openConnectionTo("sqlitemock");
 
@@ -37,7 +34,7 @@ BOOST_AUTO_TEST_CASE( transactions )
 	BOOST_REQUIRE_EQUAL(false, ro->inTx());
 }
 
-BOOST_AUTO_TEST_CASE( bindAndSend )
+BOOST_AUTO_TEST_CASE(bindAndSend)
 {
 	auto rw = DB::MockDatabase::openConnectionTo("sqlitemock");
 
@@ -49,7 +46,7 @@ BOOST_AUTO_TEST_CASE( bindAndSend )
 	BOOST_REQUIRE_EQUAL(2, rw->insertId());
 }
 
-BOOST_AUTO_TEST_CASE( bindAndSelect )
+BOOST_AUTO_TEST_CASE(bindAndSelect)
 {
 	auto ro = DB::MockDatabase::openConnectionTo("sqlitemock");
 
@@ -67,4 +64,3 @@ BOOST_AUTO_TEST_CASE( bindAndSelect )
 }
 
 BOOST_AUTO_TEST_SUITE_END();
-

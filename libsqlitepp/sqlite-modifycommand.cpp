@@ -1,12 +1,10 @@
 #include "sqlite-modifycommand.h"
+#include "sqlite-connection.h"
 #include "sqlite-error.h"
 #include <cstdlib>
-#include "sqlite-connection.h"
 
 SQLite::ModifyCommand::ModifyCommand(const Connection * conn, const std::string & sql) :
-	DB::Command(sql),
-	DB::ModifyCommand(sql),
-	SQLite::Command(conn, sql)
+	DB::Command(sql), DB::ModifyCommand(sql), SQLite::Command(conn, sql)
 {
 }
 
@@ -24,4 +22,3 @@ SQLite::ModifyCommand::execute(bool anc)
 	}
 	return rows;
 }
-
