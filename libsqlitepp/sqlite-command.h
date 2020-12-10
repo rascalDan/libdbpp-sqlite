@@ -9,7 +9,7 @@ namespace SQLite {
 	class Command : public virtual DB::Command {
 	public:
 		Command(const Connection *, const std::string & sql);
-		virtual ~Command() = 0;
+		virtual ~Command() override = 0;
 
 		void bindParamI(unsigned int, int) override;
 		void bindParamI(unsigned int, long int) override;

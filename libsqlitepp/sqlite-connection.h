@@ -8,13 +8,13 @@
 namespace SQLite {
 	class ConnectionError : public virtual Error, public virtual DB::ConnectionError {
 	public:
-		ConnectionError(sqlite3 *);
+		explicit ConnectionError(sqlite3 *);
 	};
 
 	class Connection : public DB::Connection {
 	public:
-		Connection(const std::string & info);
-		~Connection();
+		explicit Connection(const std::string & info);
+		~Connection() override;
 
 		void beginTxInt() override;
 		void commitTxInt() override;
