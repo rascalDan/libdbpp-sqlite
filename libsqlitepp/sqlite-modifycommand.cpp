@@ -15,7 +15,7 @@ SQLite::ModifyCommand::execute(bool anc)
 		sqlite3_reset(stmt);
 		throw Error(c->db);
 	}
-	unsigned int rows = static_cast<unsigned int>(sqlite3_changes(c->db));
+	auto rows = static_cast<unsigned int>(sqlite3_changes(c->db));
 	sqlite3_reset(stmt);
 	if (rows == 0 && !anc) {
 		throw DB::NoRowsAffected();

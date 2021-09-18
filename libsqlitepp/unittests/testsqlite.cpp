@@ -43,6 +43,7 @@ BOOST_AUTO_TEST_CASE(bindAndSend)
 	mod->bindParamF(1, testDouble);
 	mod->bindParamS(2, testString);
 	mod->execute();
+	// cppcheck-suppress assertWithSideEffect
 	BOOST_REQUIRE_EQUAL(2, rw->insertId());
 }
 
