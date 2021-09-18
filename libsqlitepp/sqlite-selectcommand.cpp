@@ -13,23 +13,23 @@ namespace SQLite {
 		[[nodiscard]] bool
 		isNull() const override
 		{
-			return (SQLITE_NULL == sqlite3_column_type(stmt, (int)colNo));
+			return (SQLITE_NULL == sqlite3_column_type(stmt, static_cast<int>(colNo)));
 		}
 
 		void
 		apply(DB::HandleField & h) const override
 		{
-			switch (sqlite3_column_type(stmt, (int)colNo)) {
+			switch (sqlite3_column_type(stmt, static_cast<int>(colNo))) {
 				case SQLITE_INTEGER:
-					h.integer(sqlite3_column_int64(stmt, (int)colNo));
+					h.integer(sqlite3_column_int64(stmt, static_cast<int>(colNo)));
 					return;
 				case SQLITE_FLOAT:
-					h.floatingpoint(sqlite3_column_double(stmt, (int)colNo));
+					h.floatingpoint(sqlite3_column_double(stmt, static_cast<int>(colNo)));
 					return;
 				case SQLITE_TEXT: {
-					auto t = sqlite3_column_text(stmt, (int)colNo);
-					auto l = sqlite3_column_bytes(stmt, (int)colNo);
-					h.string({reinterpret_cast<const char *>(t), (std::size_t)l});
+					auto t = sqlite3_column_text(stmt, static_cast<int>(colNo));
+					auto l = sqlite3_column_bytes(stmt, static_cast<int>(colNo));
+					h.string({reinterpret_cast<const char *>(t), static_cast<std::size_t>(l)});
 					return;
 				}
 				case SQLITE_NULL:

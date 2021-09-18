@@ -32,6 +32,9 @@ namespace SQLite {
 		void bindNull(unsigned int) override;
 
 	protected:
+		template<typename V, typename BinderFunction>
+		void bindWith(unsigned int n, const V & v, BinderFunction binder) const;
+
 		const Connection * c;
 		sqlite3_stmt * stmt;
 	};

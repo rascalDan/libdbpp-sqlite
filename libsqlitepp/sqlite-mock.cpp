@@ -2,7 +2,7 @@
 #include "sqlite-connection.h"
 #include <boost/lexical_cast.hpp>
 
-NAMEDFACTORY("sqlite", SQLite::Mock, DB::MockDatabaseFactory);
+NAMEDFACTORY("sqlite", SQLite::Mock, DB::MockDatabaseFactory)
 
 namespace SQLite {
 

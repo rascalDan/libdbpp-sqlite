@@ -3,7 +3,7 @@
 #include "sqlite-modifycommand.h"
 #include "sqlite-selectcommand.h"
 
-NAMEDFACTORY("sqlite", SQLite::Connection, DB::ConnectionFactory);
+NAMEDFACTORY("sqlite", SQLite::Connection, DB::ConnectionFactory)
 
 SQLite::ConnectionError::ConnectionError(sqlite3 * db) : SQLite::Error(db) { }
 
