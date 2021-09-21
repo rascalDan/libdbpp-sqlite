@@ -6,9 +6,6 @@
 namespace Glib {
 	class ustring;
 }
-namespace boost::posix_time {
-	class time_duration;
-}
 
 SQLite::Command::Command(const Connection * conn, const std::string & sql) : DB::Command(sql), c(conn), stmt(nullptr)
 {
