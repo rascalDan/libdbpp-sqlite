@@ -3,6 +3,7 @@
 
 #include "sqlite-command.h"
 #include <modifycommand.h>
+#include <string>
 
 namespace SQLite {
 	class Connection;

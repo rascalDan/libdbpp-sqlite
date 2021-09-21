@@ -1,9 +1,15 @@
 #include "sqlite-selectcommand.h"
+#include "column.h"
+#include "command.h"
+#include "error.h"
+#include "selectcommand.h"
+#include "sqlite-command.h"
 #include "sqlite-connection.h"
 #include "sqlite-error.h"
-#include <boost/multi_index/ordered_index.hpp>
-#include <boost/multi_index_container.hpp>
 #include <cstring>
+#include <glibmm/ustring.h>
+#include <memory>
+#include <sqlite3.h>
 
 namespace SQLite {
 	class Column : public DB::Column {

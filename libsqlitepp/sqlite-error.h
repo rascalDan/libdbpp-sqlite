@@ -1,10 +1,10 @@
 #ifndef SQLITE_ERROR_H
 #define SQLITE_ERROR_H
 
-#include <error.h>
+#include <error.h> // IWYU pragma: keep
 #include <exception.h>
 #include <sqlite3.h>
-#include <visibility.h>
+#include <string>
 
 namespace SQLite {
 	class Error : public AdHoc::Exception<DB::Error> {

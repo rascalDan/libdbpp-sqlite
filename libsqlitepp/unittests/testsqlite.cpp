@@ -1,12 +1,15 @@
 #define BOOST_TEST_MODULE TestSQLite
 #include <boost/test/unit_test.hpp>
 
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <column.h>
+#include "mockDatabase.h"
+#include <connection.h>
 #include <definedDirs.h>
+#include <filesystem>
+#include <memory>
 #include <modifycommand.h>
 #include <selectcommand.h>
 #include <sqlite-mock.h>
+#include <string_view>
 #include <testCore.h>
 
 class StandardMockDatabase : public DB::PluginMock<SQLite::Mock> {

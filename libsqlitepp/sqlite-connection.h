@@ -1,9 +1,12 @@
 #ifndef SQLITE_CONNECTION_H
 #define SQLITE_CONNECTION_H
 
+#include "command_fwd.h"
 #include "sqlite-error.h"
 #include <connection.h>
+#include <cstdint>
 #include <sqlite3.h>
+#include <string>
 
 namespace SQLite {
 	class ConnectionError : public virtual Error, public virtual DB::ConnectionError {

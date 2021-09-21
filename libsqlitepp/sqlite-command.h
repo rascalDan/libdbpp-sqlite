@@ -1,8 +1,17 @@
 #ifndef SQLITE_COMMAND_H
 #define SQLITE_COMMAND_H
 
+#include <boost/date_time/posix_time/posix_time_types.hpp>
+#include <boost/date_time/posix_time/ptime.hpp>
 #include <command.h>
+#include <glibmm/ustring.h>
 #include <sqlite3.h>
+#include <string>
+#include <string_view>
+
+namespace boost::posix_time {
+	class time_duration;
+}
 
 namespace SQLite {
 	class Connection;

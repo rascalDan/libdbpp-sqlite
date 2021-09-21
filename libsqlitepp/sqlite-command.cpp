@@ -1,7 +1,14 @@
 #include "sqlite-command.h"
+#include "command.h"
 #include "sqlite-connection.h"
-#include <cstdlib>
-#include <cstring>
+#include "sqlite-error.h"
+
+namespace Glib {
+	class ustring;
+}
+namespace boost::posix_time {
+	class time_duration;
+}
 
 SQLite::Command::Command(const Connection * conn, const std::string & sql) : DB::Command(sql), c(conn), stmt(nullptr)
 {

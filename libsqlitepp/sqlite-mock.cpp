@@ -1,6 +1,9 @@
 #include "sqlite-mock.h"
+#include "mockDatabase.h"
 #include "sqlite-connection.h"
-#include <boost/lexical_cast.hpp>
+#include <factory.h>
+#include <memory>
+#include <unistd.h>
 
 NAMEDFACTORY("sqlite", SQLite::Mock, DB::MockDatabaseFactory)
 

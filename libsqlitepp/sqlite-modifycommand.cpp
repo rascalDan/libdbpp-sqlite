@@ -1,7 +1,10 @@
 #include "sqlite-modifycommand.h"
+#include "command.h"
+#include "modifycommand.h"
+#include "sqlite-command.h"
 #include "sqlite-connection.h"
 #include "sqlite-error.h"
-#include <cstdlib>
+#include <sqlite3.h>
 
 SQLite::ModifyCommand::ModifyCommand(const Connection * conn, const std::string & sql) :
 	DB::Command(sql), DB::ModifyCommand(sql), SQLite::Command(conn, sql)

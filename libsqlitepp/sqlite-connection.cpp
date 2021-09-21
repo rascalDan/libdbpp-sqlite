@@ -1,7 +1,10 @@
 #include "sqlite-connection.h"
+#include "connection.h"
 #include "sqlite-error.h"
 #include "sqlite-modifycommand.h"
 #include "sqlite-selectcommand.h"
+#include <factory.h>
+#include <memory>
 
 NAMEDFACTORY("sqlite", SQLite::Connection, DB::ConnectionFactory)
 
