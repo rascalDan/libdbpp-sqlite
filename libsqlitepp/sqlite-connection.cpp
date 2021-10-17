@@ -8,6 +8,7 @@
 
 NAMEDFACTORY("sqlite", SQLite::Connection, DB::ConnectionFactory)
 
+// NOLINTNEXTLINE(bugprone-throw-keyword-missing)
 SQLite::ConnectionError::ConnectionError(sqlite3 * db) : SQLite::Error(db) { }
 
 SQLite::Connection::Connection(const std::string & str) : db(nullptr)
