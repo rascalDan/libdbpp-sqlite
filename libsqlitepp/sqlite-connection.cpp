@@ -51,13 +51,13 @@ SQLite::Connection::rollbackTxInt()
 DB::BulkDeleteStyle
 SQLite::Connection::bulkDeleteStyle() const
 {
-	return DB::BulkDeleteUsingUsingAlias;
+	return DB::BulkDeleteStyle::UsingUsingAlias;
 }
 
 DB::BulkUpdateStyle
 SQLite::Connection::bulkUpdateStyle() const
 {
-	return DB::BulkUpdateUsingJoin;
+	return DB::BulkUpdateStyle::UsingJoin;
 }
 
 void
