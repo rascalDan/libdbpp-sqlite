@@ -74,7 +74,7 @@ SQLite::Command::bindParamS(unsigned int n, const Glib::ustring & s)
 	return bindParamS(n, std::string_view(s.raw()));
 }
 void
-SQLite::Command::bindParamS(unsigned int n, const std::string_view & s)
+SQLite::Command::bindParamS(unsigned int n, const std::string_view s)
 {
 	if (sqlite3_bind_text(stmt, static_cast<int>(n + 1), s.data(), static_cast<int>(s.length()), SQLITE_STATIC)
 			!= SQLITE_OK) {
@@ -87,12 +87,12 @@ SQLite::Command::bindParamB(unsigned int, bool)
 	throw DB::ParameterTypeNotSupported();
 }
 void
-SQLite::Command::bindParamT(unsigned int, const boost::posix_time::time_duration &)
+SQLite::Command::bindParamT(unsigned int, const boost::posix_time::time_duration)
 {
 	throw DB::ParameterTypeNotSupported();
 }
 void
-SQLite::Command::bindParamT(unsigned int, const boost::posix_time::ptime &)
+SQLite::Command::bindParamT(unsigned int, const boost::posix_time::ptime)
 {
 	throw DB::ParameterTypeNotSupported();
 }
